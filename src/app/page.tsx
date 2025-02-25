@@ -4,7 +4,6 @@ import FallingText from "./components/fallingtext";
 import Aurora from "./components/aurora";
 import GradientText from "./components/GradientText";
 import BlurText from "./components/BlurText";
-import ShinyText from "./components/ShinyText";
 import Stepper, { Step } from "./components/Stepper";
 export default function Home() {
   const [step, setStep] = useState(1);
@@ -64,7 +63,7 @@ export default function Home() {
     let nextBirthdayDate = new Date(
       todayDateObj.getFullYear(),
       birthDateObj.getMonth(),
-      birthDateObj.getDate()
+      birthDateObj.getDate(),
     );
 
     if (nextBirthdayDate < todayDateObj) {
@@ -144,9 +143,15 @@ export default function Home() {
           />
         )}
         {!error && (
+          // step 容器
           <Stepper
             initialStep={1}
             onStepChange={(step) => {
+              if (step == 3) {
+                calculateDaysUntilBirthday();
+              } else if (step == 4) {
+                calculatePlanDate();
+              }
               console.log(step);
             }}
             onFinalStepCompleted={() => console.log("All steps completed!")}
@@ -195,12 +200,14 @@ export default function Home() {
                       className="rounded-md bg-transparent px-2 py-1 border border-gray-500 focus:outline-none"
                     />
                   </label>
+                  {/*
                   <button
                     onClick={calculateDaysUntilBirthday}
                     className="mx-auto mt-4 border rounded-lg px-6 py-2"
                   >
                     <ShinyText text="继续" disabled={false} speed={2} />
                   </button>
+                  */}
                 </div>
               </div>
             </Step>
@@ -235,12 +242,14 @@ export default function Home() {
                       +
                     </button>
                   </div>
+                  {/*
                   <button
                     onClick={calculatePlanDate}
                     className="mt-4 rounded-lg border px-6 py-2"
                   >
                     继续
                   </button>
+                  */}
                 </div>
               </GradientText>
             </Step>
@@ -264,6 +273,7 @@ export default function Home() {
                   </p>
                   <p>预计准备制定生日计划的日期: {finalPlanDate}</p>
                 </div>
+                {/*
                 <div className="mt-6 space-x-4">
                   <button
                     onClick={() => setStep(3)}
@@ -278,6 +288,7 @@ export default function Home() {
                     确认并继续
                   </button>
                 </div>
+                  */}
               </GradientText>
             </Step>
             <Step>
